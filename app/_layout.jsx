@@ -1,14 +1,14 @@
+import { Stack } from 'expo-router';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Text } from 'react-native';
+import { View, Text } from 'react-native';
 
 const RootLayout = () => {
     return (
-        <View className="flex-1 items-center justify-center bg-white">
-            <Text className=" text-2xl font-bold " >
-                THis is the home
-            </Text>
-        </View>
+        <Stack>
+            <Stack.Screen name="(user)" options={{ headerShown: false }} />   
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />   
+            <Stack.Screen name="index" options={{ headerShown: false }} />
+        </Stack>
     );
 }
 

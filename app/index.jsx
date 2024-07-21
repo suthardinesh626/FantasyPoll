@@ -1,18 +1,25 @@
-import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Home from './(tabs)/Home';
-import Profile from './(tabs)/Profile';
+import { Link } from 'expo-router';
+import React from 'react';
+import { Text, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar'
 
-const Tab = createBottomTabNavigator();
-
-export default function index() {
-  return (
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Profile" component={Profile} />
-      </Tab.Navigator>
-    </NavigationContainer>
-  );
+const Home = () => {
+    return (
+        <View className="flex justify-center items-center h-full bg-primary" >
+            <Text className="text-gray-200" >This is the Home Screeen</Text>
+            <StatusBar style='auto' />
+            <Text className="" >
+                <Text className="text-gray-200" >
+                    This is the Entry Point {" "}
+                </Text>
+                <Text>
+                    <Link href="/home" className="text-emerald-400" >This is for Home</Link>
+                </Text>
+            </Text>
+        </View>
+    );
 }
+
+
+
+export default Home;
