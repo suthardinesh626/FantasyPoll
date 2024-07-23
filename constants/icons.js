@@ -4,6 +4,8 @@ import profile from '../assets/images/profile.png';
 import create from '../assets/images/create.png'
 import eye from '../assets/images/eye.png'
 import hideEye from '../assets/images/hideeye.png'
+import logo from '../assets/images/pollLogo.png'
+import logout from '../assets/images/logout.png'
 
 export default {
     home,
@@ -12,5 +14,6 @@ export default {
     create,
     eye,
     hideEye,
-
+    logo,
+    logout
 };

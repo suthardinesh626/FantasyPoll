@@ -1,22 +1,43 @@
 import { Link } from 'expo-router';
-import React from 'react';
-import { Text, View } from 'react-native';
+import { Redirect, router } from "expo-router";
+import { Text, View, Image, } from 'react-native';
 import { StatusBar } from 'expo-status-bar'
+import icons from '@/constants/icons';
+import CutomButton from '../components/CutomButton'
+import { useGlobalContext } from '../context/GlobalProvider'
 
 const Home = () => {
+
+    const { loading, isLogged } = useGlobalContext();
+
+    if (!loading && isLogged) return <Redirect href="/home" />;
     return (
         <View className="flex justify-center items-center h-full bg-primary" >
-            <Text className="text-gray-200" >This is the Home Screeen</Text>
-            <StatusBar style='auto' />
+            <View className="flex-col justify-center items-center gap-4 mb-10" >
+                <Text className="text-gray-200 text-4xl" >Fantasy Poll</Text>
+                <Image
+                    source={icons.logo}
+                />
+
+            </View>
+            <View className="flex justify-center items-center" >
+                <Text className="text-gray-200  text-3xl m-5 text-justify" >
+                    Welcome to the Fantasy Poll here you share your opinon and people can reponse to it.  {" "}
+                </Text>
+            </View>
+            <CutomButton
+                title="Continue with Email"
+                handlePress={() => router.push("/singin")}
+                containerStyles="w-full mt-7"
+                textStyles="font-bold"
+            />
+
             <Text className="" >
-                <Text className="text-gray-200" >
-                    This is the Entry Point {" "}
-                </Text>
-                <Text>
-                    <Link href="/home" className="text-emerald-400" >This is for Home</Link>
-                </Text>
+                <Link href="/home" className="font-bold text-xl text-green-400 " >This is for Home</Link>
             </Text>
-        </View>
+
+            <StatusBar style='auto' />
+        </View >
     );
 }
 

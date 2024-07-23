@@ -1,23 +1,26 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
+import { useGlobalContext } from '../context/GlobalProvider';
 
-
-const PollCard = ({ title, summary, options }) => {
+const PollCard = ({ title, summary, optiontext }) => {
+  const { polls } = useGlobalContext();
+  // console.log('poll on pollc:', polls.data);
   return (
-    <View className="w-full justify-center items-center " >
-
-      <View className="rounded-lg p-5 m-5  shadow-lg w-2/3 bg-secondary-100 ">
-        <Text className="text-xl font-bold mb-2">{title}</Text>
+    <View className="w-full justify-center ">
+      <View className=" rounded-lg p-5 m-5  shadow-lg bg-secondary-100 ">
+        <Text className="text-xl font-bold mb-2 ">{title}</Text>
         <Text className="text-base text-gray-600 mb-4">{summary}</Text>
         <View>
-          <Text className="" >option 1</Text>
-          <Text>option 2</Text>
-          <Text>option 3</Text>
-          <Text>option 4</Text>
-          <Text>option 4</Text>
+          <FlatList
+            data={optiontext}
+            renderItem={({ item }) => (
+              <View>
+                <Text className="bg-secondary-200 m-1 p-2 rounded-lg text-gray-200 ">{item.optiontext}</Text>
+              </View>
+            )}
+          />
         </View>
       </View>
-
     </View>
   );
 };
