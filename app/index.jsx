@@ -3,7 +3,7 @@ import { Redirect, router } from "expo-router";
 import { Text, View, Image, } from 'react-native';
 import { StatusBar } from 'expo-status-bar'
 import icons from '@/constants/icons';
-import CutomButton from '../components/CutomButton'
+import CustomButton from '../components/CustomButton'
 import { useGlobalContext } from '../context/GlobalProvider'
 
 const Home = () => {
@@ -25,7 +25,7 @@ const Home = () => {
                     Welcome to the Fantasy Poll here you share your opinon and people can reponse to it.  {" "}
                 </Text>
             </View>
-            <CutomButton
+            <CustomButton
                 title="Continue with Email"
                 handlePress={() => router.push("/singin")}
                 containerStyles="w-full mt-7"

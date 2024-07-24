@@ -8,7 +8,7 @@ const PollCard = ({ title, summary, optiontext }) => {
   return (
     <View className="w-full justify-center ">
       <View className=" rounded-lg p-5 m-5  shadow-lg bg-secondary-100 ">
-        <Text className="text-xl font-bold mb-2 ">{title}</Text>
+        <Text className="text-2xl font-bold text-gray-700 mb-2 ">{title}</Text>
         <Text className="text-base text-gray-600 mb-4">{summary}</Text>
         <View>
           <FlatList

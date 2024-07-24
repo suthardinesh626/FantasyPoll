@@ -46,7 +46,7 @@ const Profile = () => {
 
   return (
     <SafeAreaView className="bg-primary h-full w-full">
-      
+
       <View className="flex-row justify-end m-4">
         <Text className="text-gray-200 text-xl mr-3" onPress={handleLogout}>
           Logout
@@ -58,15 +58,15 @@ const Profile = () => {
         />
       </View>
       <Text className="text-3xl font-bold text-gray-200 text-center">Profile</Text>
-      <View className="h-48">
+      <View className="">
         <FlatList
           ListHeaderComponent={() => (
             user ? (
               <View className="w-full flex justify-center items-center">
-                <View className="w-16 h-16 border flex justify-center items-center">
+                <View className="w-16 h-16 flex justify-center items-center">
                   <Image
                     source={{ uri: user.avatar }}
-                    className="w-[90%] h-[90%] rounded-3xl"
+                    className="w-[90%] h-[90%] "
                     resizeMode="cover"
                   />
                 </View>

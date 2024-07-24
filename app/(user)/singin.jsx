@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native'; // Import useNavigation
 
 import FormField from '../../components/FormField';
-import CutomButton from '../../components/CutomButton';
+import CustomButton from '../../components/CustomButton';
 import icons from '../../constants/icons';
 import { userLogin } from '../../api/user_api';
 
@@ -69,7 +69,7 @@ const Singin = () => {
             secureTextEntry // Add secureTextEntry for password field
             otherStyles="w-full p-2"
           />
-          <CutomButton
+          <CustomButton
             title="Sign In" // Corrected typo
             containerStyles="w-full m-4"
             textStyles="font-bold"

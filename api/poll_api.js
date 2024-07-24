@@ -1,6 +1,31 @@
 import ApiManager from "./ApiManager";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const createPoll = async (data) => {
+    // console.log('This is the data', data);
+
+    try {
+        const token = await AsyncStorage.getItem('accessToken');
+        const user = await AsyncStorage.getItem('currentUser');
+        // console.log('This the userId', user._id);
+
+        // console.log(token);
+        const result = await ApiManager('/poll/createpoll', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            data: data
+        });
+
+        return result;
+    } catch (error) {
+        console.error('Error creating poll:', error.message);
+        throw error;
+    }
+};
+
 const allPoll = async () => {
     try {
         const token = await AsyncStorage.getItem('accessToken');
@@ -25,7 +50,7 @@ const usePoll = async () => {
     try {
         const token = await AsyncStorage.getItem('accessToken');
         const user = await AsyncStorage.getItem('currentUser');
-        
+
         if (user) {
             const parsedUser = JSON.parse(user);
             // console.log('This is the user details:', parsedUser._id);
@@ -48,4 +73,4 @@ const usePoll = async () => {
     }
 };
 
-export { allPoll, usePoll }
+export { allPoll, usePoll, createPoll }

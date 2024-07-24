@@ -2,7 +2,7 @@ import { View, Text, ScrollView } from 'react-native'
 import React from 'react'
 import FormField from '../../components/FormField'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import CutomButton from '../../components/CutomButton'
+import CustomButton from '../../components/CustomButton'
 import { Link } from 'expo-router'
 import icons from '../../constants/icons'
 import { Image } from 'react-native'
@@ -22,7 +22,7 @@ const singup = () => {
           <FormField placeholder={"Username"} otherStyles={"w-full p-2"} />
           <FormField placeholder={"Password"} otherStyles={"w-full p-2"} />
           <FormField placeholder={"Confirm Password"} otherStyles={"w-full p-2"} />
-          <CutomButton
+          <CustomButton
             title="Sing Up"
             containerStyles="m-3"
             textStyles="font-bold"
