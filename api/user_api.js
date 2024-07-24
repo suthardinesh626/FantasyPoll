@@ -3,6 +3,29 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ApiManager from './ApiManager';
 
+const userRegister = async (data) => {
+    try {
+    console.log('this is the user registration details on api function: data', data);
+
+        const result = await ApiManager('/users/register', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: data
+        });
+
+        console.log("Registration result:", result);
+        if (result.status === 200 && result.data.data.accessToken) {
+            await AsyncStorage.setItem('accessToken', result.data.data.accessToken);
+            await AsyncStorage.setItem('currentUser', JSON.stringify(result.data.data.user));
+        }
+
+        return result;
+    } catch (error) {
+        console.error('Error during registration:', error.message);
+    }
+};
 const userLogin = async (data) => {
     try {
         const result = await ApiManager('/users/login', {
@@ -57,5 +80,4 @@ const userLogout = async () => {
     }
 };
 
-
-export { userLogin, currentUser, userLogout };
+export { userLogin, currentUser, userLogout, userRegister };

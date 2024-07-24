@@ -78,7 +78,7 @@ const Singin = () => {
         </View>
         <View className="flex justify-center items-center">
           <Text className="text-gray-200">
-            Don't have an account? <Link href="/signup" className="text-green-400">Sign Up</Link>
+            Don't have an account? <Link href="/singup" className="text-green-400">Sign Up</Link>
           </Text>
         </View>
       </ScrollView>

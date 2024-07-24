@@ -36,9 +36,7 @@ const allPoll = async () => {
                 'Authorization': `Bearer ${token}`
             }
         });
-
         // console.log('This is the polls :', result.data);
-
         return result.data;
     } catch (error) {
         console.error('Error fetching polls:', error.message);

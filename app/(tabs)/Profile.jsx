@@ -66,7 +66,7 @@ const Profile = () => {
                 <View className="w-16 h-16 flex justify-center items-center">
                   <Image
                     source={{ uri: user.avatar }}
-                    className="w-[90%] h-[90%] "
+                    className="w-[90%] h-[90%] rounded-lg border border-white"
                     resizeMode="cover"
                   />
                 </View>

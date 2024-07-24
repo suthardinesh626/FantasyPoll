@@ -28,13 +28,18 @@ const Home = () => {
             <CustomButton
                 title="Continue with Email"
                 handlePress={() => router.push("/singin")}
-                containerStyles="w-full mt-7"
+                containerStyles="w-full mt-7 mb-2 "
                 textStyles="font-bold"
             />
-
-            <Text className="" >
-                <Link href="/home" className="font-bold text-xl text-green-400 " >This is for Home</Link>
+            <Text className="text-gray-200 text-xl" >
+                Or
             </Text>
+            <CustomButton
+                title="Register"
+                handlePress={() => router.push("/singup")}
+                containerStyles="w-full mt-2"
+                textStyles="font-bold"
+            />
 
             <StatusBar style='auto' />
         </View >
