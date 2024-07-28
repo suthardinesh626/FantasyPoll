@@ -28,7 +28,7 @@ const Home = () => {
             <CustomButton
                 title="Continue with Email"
                 handlePress={() => router.push("/singin")}
-                containerStyles="w-full mt-7 mb-2 "
+                containerStyles="w-full mt-7 mb-2"
                 textStyles="font-bold"
             />
             <Text className="text-gray-200 text-xl" >
@@ -37,7 +37,7 @@ const Home = () => {
             <CustomButton
                 title="Register"
                 handlePress={() => router.push("/singup")}
-                containerStyles="w-full mt-2"
+                containerStyles="w-full mt-2 p-4"
                 textStyles="font-bold"
             />
 

@@ -91,11 +91,14 @@ const Profile = () => {
 
       <FlatList
         data={polls.data}
+        keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
           <PollCard
+            pollId={item._id}
             title={item.title}
             summary={item.summary}
-            optiontext={item.options}
+            options={item.options}
+            profileCard="user"
           />
         )}
       />

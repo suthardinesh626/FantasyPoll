@@ -2,37 +2,30 @@ import React, { useState } from 'react';
 import { View, Text, ScrollView, Image, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Link, router } from 'expo-router';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native'; // Import useNavigation
+import { useNavigation } from '@react-navigation/native';
 
 import FormField from '../../components/FormField';
 import CustomButton from '../../components/CustomButton';
 import icons from '../../constants/icons';
-import { userLogin } from '../../api/user_api';
+import { useGlobalContext } from '../../context/GlobalProvider'; // Import context
 
-const Singin = () => {
+const Signin = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigation = useNavigation(); // Initialize navigation
+  const navigation = useNavigation();
+  const { login } = useGlobalContext(); // Get login function from context
 
   const handleLogin = async () => {
     try {
-
-      const result = await userLogin({
+      const result = await login({
         email: email.toLowerCase(),
-        username:username,
+        username: username,
         password: password
-      
       });
-      // console.log("This is the result in frontend", result.data);
 
-      if (result.status === 200) {
-        await AsyncStorage.setItem("accessToken", result.data.data.accessToken);
-        router.replace("home"); // Use navigation.replace for navigation
-      } else {
-        Alert.alert("Login Failed", "Please check your credentials and try again.");
-      }
+      router.replace("/home"); // Use router to navigate
+      // 
     } catch (err) {
       console.error('Login Error:', err);
       Alert.alert("Login Error", err.message || "An unexpected error occurred. Please try again.");
@@ -51,26 +44,31 @@ const Singin = () => {
             title="Username"
             placeholder="Username"
             value={username}
-            onChangeText={setUsername} // Add onChangeText prop
+            onChangeText={setUsername}
+            inputStyle='h-12 bg-blue-200 text-gray-100 border-none'
             otherStyles="w-full p-2"
           />
           <FormField
             title="Email"
             placeholder="Email"
             value={email}
-            onChangeText={setEmail} // Add onChangeText prop
+            onChangeText={setEmail}
             otherStyles="w-full p-2"
+            inputStyle='h-12 bg-blue-200 border-none'
+
           />
           <FormField
             title="Password"
             placeholder="Password"
             value={password}
-            onChangeText={setPassword} // Add onChangeText prop
-            secureTextEntry // Add secureTextEntry for password field
+            onChangeText={setPassword}
+            secureTextEntry
             otherStyles="w-full p-2"
+            inputStyle='h-12 bg-blue-200 text-gray-100 border-none'
+
           />
           <CustomButton
-            title="Sign In" // Corrected typo
+            title="Sign In"
             containerStyles="w-full m-4"
             textStyles="font-bold"
             handlePress={handleLogin}
@@ -86,4 +84,4 @@ const Singin = () => {
   );
 };
 
-export default Singin;
+export default Signin;

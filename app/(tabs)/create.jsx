@@ -60,17 +60,19 @@ const Create = () => {
 
     return (
         <SafeAreaView className=" h-full bg-primary">
-            <View className="flex-col justify-center items-center m-5 p-2 rounded-2xl shadow-lg bg-gray-700" >
+            <View className="flex-col justify-center items-center m-5 p-2 rounded-2xl shadow-lg bg-secondary-100" >
                 <FormField
                     placeholder="Title"
                     value={title}
                     onChangeText={setTitle}
+                    inputStyle='h-10 bg-secondary-200 text-gray-100 border-none'
                     otherStyles="w-full p-2 "
                 />
                 <FormField
                     placeholder="Summary"
                     value={summary}
                     onChangeText={setSummary}
+                    inputStyle='h-10 bg-secondary-200 text-gray-100 border-none'
                     otherStyles="w-full p-2"
                 />
                 <View className="w-2/3">
@@ -78,6 +80,8 @@ const Create = () => {
                         data={options}
                         renderItem={renderOption}
                         keyExtractor={(item, index) => index.toString()}
+                        inputStyle='h-10 bg-secondary-200'
+
                     />
                 </View>
                 <CustomButton

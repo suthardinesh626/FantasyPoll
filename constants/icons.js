@@ -6,6 +6,7 @@ import eye from '../assets/images/eye.png'
 import hideEye from '../assets/images/hideeye.png'
 import logo from '../assets/images/pollLogo.png'
 import logout from '../assets/images/logout.png'
+import bin from '../assets/images/delete.png'
 
 export default {
     home,
@@ -15,5 +16,6 @@ export default {
     eye,
     hideEye,
     logo,
-    logout
+    logout,
+    bin
 };

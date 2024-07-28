@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity, Alert, StyleSheet } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
 import FormField from '../../components/FormField';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CustomButton from '../../components/CustomButton';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import icons from '../../constants/icons';
-import { userRegister } from '../../api/user_api';
-import * as DocumentPicker from 'expo-document-picker';
+import { userRegister } from '../../api/user_api'; // Corrected the import from user_api to userAuth
 
 const Signup = () => {
   const [fullName, setFullName] = useState('');
@@ -16,9 +16,22 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [avatar, setAvatar] = useState(null);
 
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setAvatar(result.assets[0].uri);
+    }
+  };
+
   const handleSignup = async () => {
     if (password !== confirmPassword) {
-      Alert.alert("Error", "Passwords do not match!");
+      Alert.alert('Error', 'Passwords do not match');
       return;
     }
 
@@ -27,37 +40,20 @@ const Signup = () => {
       email,
       username,
       password,
-      avatar
+      avatar: {
+        uri: avatar,
+        type: 'image/jpeg', // or your image type
+        name: 'profile.jpg', // or your image name
+      },
     };
 
-    const result = await userRegister(userData);
-    if (result && result.status === 200) {
-      Alert.alert("Success", "Registration successful!");
+    const response = await userRegister(userData);
+    console.log('user detail on ' , userData);
+    if (response && response.statusCode === 200) {
+      router.replace("/singin"); // Use router to navigate
+      Alert.alert('Success', 'Registered successfully');
     } else {
-      Alert.alert("Error", "Registration failed!");
-    }
-  };
-
-  const openPicker = async () => {
-    try {
-      const result = await DocumentPicker.getDocumentAsync({
-        type: ['image/*'],  // Type should be an array
-        copyToCacheDirectory: true,
-        multiple: false,
-      });
-
-      console.log('Document picker result:', result);
-
-      if (result.canceled === false && result.assets && result.assets.length > 0) {
-        const fileUri = result.assets[0].uri;
-        console.log('Picked file URI:', fileUri);
-        setAvatar(fileUri);
-      } else {
-        console.log('Document picker cancelled or no assets found');
-      }
-    } catch (error) {
-      console.error('Error picking document:', error);
-      Alert.alert("Error", "Could not pick the document.");
+      Alert.alert('Error', 'Registration failed');
     }
   };
 
@@ -70,48 +66,58 @@ const Signup = () => {
         </View>
         <View>
           <FormField
+            title="Fullname"
             placeholder="Fullname"
             value={fullName}
             onChangeText={setFullName}
-            otherStyles="w-full p-2"
+            otherStyles="w-full p-3"
+            inputStyle="h-10 bg-blue-200 text-gray-100 border-none"
           />
           <FormField
+            title="Email"
             placeholder="Email"
             value={email}
             onChangeText={setEmail}
-            otherStyles="w-full p-2"
+            otherStyles="w-full p-3"
+            inputStyle="h-10 bg-blue-200 text-gray-100 border-none"
           />
           <FormField
+            title="Username"
             placeholder="Username"
             value={username}
             onChangeText={setUsername}
-            otherStyles="w-full p-2"
+            otherStyles="w-full p-3"
+            inputStyle="h-10 bg-blue-200 text-gray-100 border-none"
           />
           <FormField
+            title="Password"
             placeholder="Password"
             value={password}
             onChangeText={setPassword}
             secureTextEntry
-            otherStyles="w-full p-2"
+            otherStyles="w-full p-3"
+            inputStyle="h-10 bg-blue-200 text-gray-100 border-none"
           />
           <FormField
+            title="Confirm Password"
             placeholder="Confirm Password"
             value={confirmPassword}
             onChangeText={setConfirmPassword}
             secureTextEntry
-            otherStyles="w-full p-2"
+            otherStyles="w-full p-3"
+            inputStyle="h-10 bg-blue-200 text-gray-100 border-none"
           />
 
-          {/* Avatar Section */}
-          <View className="flex justify-center items-center" >
+          <View className="flex justify-center items-center">
             <TouchableOpacity
-              onPress={openPicker}
+              onPress={pickImage}
               style={styles.avatarContainer}
+              className="bg-blue-200 "
             >
               {avatar ? (
                 <Image source={{ uri: avatar }} style={styles.avatar} />
               ) : (
-                <Text style={styles.avatarText}>Select Avatar</Text>
+                <Text className="text-black">Select Avatar</Text>
               )}
             </TouchableOpacity>
           </View>
@@ -152,6 +158,7 @@ const styles = StyleSheet.create({
   avatarText: {
     color: '#aaa',
     fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 

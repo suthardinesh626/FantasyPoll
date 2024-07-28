@@ -1,19 +1,18 @@
-import { ActivityIndicator, FlatList, Image, Text, View, ScrollView, RefreshControl } from 'react-native';
+import 'react-native-gesture-handler'
+import { FlatList, Image, Text, View, ScrollView } from 'react-native';
 import PollCard from '../../components/PollCard';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useGlobalContext } from '../../context/GlobalProvider';
 import icons from '../../constants/icons';
-import { useState } from 'react';
 
 const Home = () => {
-    const { polls, user, refetchPolls } = useGlobalContext(); 
+    const { polls, user } = useGlobalContext();
 
 
     return (
         <SafeAreaView className="flex justify-start w-full h-full bg-primary">
-            <ScrollView
-            
-            >
+            <ScrollView>
+
                 <View className="flex-row justify-between m-2">
                     <View className="flex-row justify-center items-center">
                         <Image
@@ -36,16 +35,18 @@ const Home = () => {
                 </View>
                 <View>
                     <FlatList
-                        data={polls.data}
+                        data={polls?.data}
                         renderItem={({ item }) => (
                             <PollCard
+                                pollId={item._id}
                                 title={item.title}
                                 summary={item.summary}
-                                optiontext={item.options}
+                                options={item.options}
+
                             />
                         )}
-                       
-                       
+
+
                     />
                 </View>
             </ScrollView>

@@ -5,25 +5,26 @@ import ApiManager from './ApiManager';
 
 const userRegister = async (data) => {
     try {
-    console.log('this is the user registration details on api function: data', data);
+        const formData = new FormData();
+        for (const key in data) {
+            formData.append(key, data[key]);
+        }
 
         const result = await ApiManager('/users/register', {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'multipart/form-data',
             },
-            data: data
+            data: formData,
         });
 
-        console.log("Registration result:", result);
-        if (result.status === 200 && result.data.data.accessToken) {
-            await AsyncStorage.setItem('accessToken', result.data.data.accessToken);
-            await AsyncStorage.setItem('currentUser', JSON.stringify(result.data.data.user));
-        }
+        console.log('this the user detsil wihle resgisetring:', result.data);
 
-        return result;
+        return result.data;
+
     } catch (error) {
         console.error('Error during registration:', error.message);
+        return null;
     }
 };
 const userLogin = async (data) => {
@@ -36,15 +37,16 @@ const userLogin = async (data) => {
             data: data
         });
 
-        console.log("this is the result:", result);
         if (result.status === 200 && result.data.data.accessToken) {
             await AsyncStorage.setItem('accessToken', result.data.data.accessToken);
             await AsyncStorage.setItem('currentUser', JSON.stringify(result.data.data.user));
+            return result.data.data.user;
         }
 
-        return result;
+        return null;
     } catch (error) {
         console.error('Error during login:', error.message);
+        return null;
     }
 };
 

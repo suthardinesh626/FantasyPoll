@@ -71,4 +71,50 @@ const usePoll = async () => {
     }
 };
 
-export { allPoll, usePoll, createPoll }
+const votePoll = async (pollId, optionId) => {
+    try {
+        const token = await AsyncStorage.getItem('accessToken');
+        const result = await ApiManager(`/poll/${pollId}/options/${optionId}/vote`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        console.log('This is the vote: ');
+        if (result.status === 400) {
+            throw new Error('You have already voted on this poll.');
+        }
+
+        return result.data;
+    } catch (error) {
+        console.error('Error voting on poll:', error.message);
+        throw error;
+    }
+};
+
+const deletePoll = async (pollId) => {
+    console.log('This is the poll Id :', pollId);
+    try {
+        const token = await AsyncStorage.getItem('accessToken');
+        const result = await ApiManager(`/poll/${pollId}/deletepoll`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (result.status === 200) {
+            return result.data;
+        } else {
+            throw new Error('Failed to delete poll.');
+        }
+    } catch (error) {
+        console.error('Error deleting poll:', error.message);
+        throw error;
+    }
+};
+
+export { allPoll, usePoll, createPoll, votePoll, deletePoll }
