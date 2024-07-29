@@ -41,7 +41,7 @@ const Profile = () => {
   }
 
   if (error) {
-    return <Text>Error: {error}</Text>;
+    return <Text >Error: {error}</Text>;
   }
 
   return (
@@ -65,14 +65,14 @@ const Profile = () => {
               <View className="w-full flex justify-center items-center">
                 <View className="w-16 h-16 flex justify-center items-center">
                   <Image
-                    source={{ uri: user.avatar }}
+                    source={{ uri: user?.avatar }}
                     className="w-[90%] h-[90%] rounded-lg border border-white"
                     resizeMode="cover"
                   />
                 </View>
                 <View>
                   <Text className="text-gray-200 text-3xl">
-                    {user.fullName}
+                    {user?.fullName}
                   </Text>
                 </View>
               </View>
